@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An informational page explaining HAProxy, its architecture, and key features.">
+    <title>About HAProxy</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #0f172a;
+            color: #f8fafc;
+            text-align: center;
+            padding: 2em 1em;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2em auto;
+            padding: 0 1em;
+        }
+
+        section {
+            margin-bottom: 2em;
+        }
+
+        h2 {
+            color: #2563eb;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 0.3em;
+        }
+
+        code {
+            background-color: #e2e8f0;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        ul {
+            margin-left: 1.5em;
+        }
+
+        footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.5em;
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HAProxy: The Reliable Load Balancer</h1>
+        <p>High Availability, High Performance, and Open Source</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>What is HAProxy?</h2>
+            <p>
+                <strong>HAProxy (High Availability Proxy)</strong> is a powerful, open-source TCP/HTTP load balancer and proxy server.
+                It’s widely used to improve the performance, scalability, and reliability of web applications by distributing incoming network traffic across multiple servers.
+            </p>
+        </section>
+
+        <section>
+            <h2>Key Features</h2>
+            <ul>
+                <li>🌐 <strong>Load Balancing</strong> — Efficiently distributes requests across backend servers.</li>
+                <li>⚡ <strong>High Performance</strong> — Designed for low latency and high throughput.</li>
+                <li>🔒 <strong>Security</strong> — Supports SSL/TLS termination, ACLs, and DDoS protection mechanisms.</li>
+                <li>🔁 <strong>Health Checks</strong> — Monitors backend server health and removes unresponsive nodes automatically.</li>
+                <li>📊 <strong>Detailed Statistics</strong> — Built-in stats page and extensive logging.</li>
+                <li>⚙️ <strong>Flexibility</strong> — Works with Layer 4 (TCP) and Layer 7 (HTTP) protocols.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Basic Architecture</h2>
+            <p>HAProxy typically sits between clients and backend servers:</p>
+            <pre><code>
+Client ---> HAProxy ---> Web Server 1
+                     ---> Web Server 2
+                     ---> Web Server 3
+            </code></pre>
+            <p>
+                HAProxy intelligently routes requests based on load balancing algorithms like 
+                <code>roundrobin</code>, <code>leastconn</code>, or <code>source</code>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Example Configuration</h2>
+            <p>A minimal HAProxy configuration might look like this:</p>
+            <pre><code>
+global
+    log /dev/log local0
+    maxconn 2048
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client  50000ms
+    timeout server  50000ms
+
+frontend http_front
+    bind *:80
+    default_backend servers
+
+backend servers
+    balance roundrobin
+    server web1 192.168.1.101:80 check
+    server web2 192.168.1.102:80 check
+            </code></pre>
+        </section>
+
+        <section>
+            <h2>Use Cases</h2>
+            <ul>
+                <li>Load balancing web servers or APIs</li>
+                <li>Providing failover and redundancy</li>
+                <li>SSL termination for secure web traffic</li>
+                <li>Reverse proxying and caching</li>
+                <li>Traffic routing between microservices</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HAProxy Informational Page | Created for educational use</p>
+    </footer>
+</body>
+</html>
